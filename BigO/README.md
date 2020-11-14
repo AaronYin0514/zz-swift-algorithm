@@ -114,7 +114,7 @@ performanceMeasure {
 
 从结果上看，递归方式耗时明显。如下图所示，递归调用有大量重复节点，意味着计算量会随着n的增大急剧增大。
 
-![斐波那契数列-递归法](/Users/yinzhongzheng/Work/zz-swift-algorithm/BigO/pic001.jpg)
+![斐波那契数列-递归法](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BigO/pic001.jpg)
 
 #### 事后统计-缺点
 
@@ -208,7 +208,7 @@ func test5(_ n: Int) {
 
 #### 常用的时间复杂度数量级
 
-![常用的时间复杂度数量级](/Users/yinzhongzheng/Work/zz-swift-algorithm/BigO/pic002.png)
+![常用的时间复杂度数量级](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BigO/pic002.png)
 
 > O(1) < O(log(n)) < O(nlog(n)) < O(n^2) < O(n^3) < O(2^n) < O(n!) < O(n^n)
 
