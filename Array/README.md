@@ -27,7 +27,180 @@
 
 > 数组是一种顺序存储的线性表，所有元素的内存地址是连续的。
 
-无论是Objective-C还是
+数组在初始化时需要指定容量，所以数组元素满了以后就需要扩容。我们利用Objective-C实现一个动态数组，来模拟这种情况。
 
+### Objective-C动态数组
+
+#### 接口设计
+
+```
+@interface ZZArray : NSObject
+
+@property (nonatomic, assign, readonly) NSUInteger count;
+
+- (instancetype)init;
+
+- (instancetype)initWithCapacity:(NSUInteger)capacity;
+
+- (void)addObject:(id)anObject;
+
+- (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
+
+- (id)objectAtIndex:(NSUInteger)index;
+
+- (void)removeObjectAtIndex:(NSUInteger)index;
+
+- (void)removeAllObjects;
+
+- (void)removeLastObject;
+
+@end
+```
+
+#### 成员变量
+
+```
+static NSInteger const ZZArrayMinCapacity = 10;
+
+@interface ZZArray ()
+{
+    id *_contents_array;
+    NSUInteger _capacity;
+}
+
+@end
+```
+
+#### 初始化
+
+```
+- (instancetype)init {
+    return [self initWithCapacity:ZZArrayMinCapacity];
+}
+
+- (instancetype)initWithCapacity:(NSUInteger)capacity {
+    if (self = [super init]) {
+        if (capacity <= 0) {
+            capacity = ZZArrayMinCapacity;
+        }
+        _capacity = capacity;
+        _contents_array = NSZoneMalloc([self zone], sizeof(id) * capacity);
+    }
+    return self;
+}
+
+- (void)dealloc {
+    if (_contents_array) {
+        for (NSInteger i = 0; i < _count; i++) {
+            [_contents_array[i] release];
+        }
+        NSZoneFree([self zone], _contents_array);
+        _contents_array = 0;
+    }
+    [super dealloc];
+}
+```
+
+#### 添加元素
+
+```
+- (void)addObject:(id)anObject {
+    NSParameterAssert(anObject);
+    [self ensureCapacity];
+    _contents_array[_count] = [anObject retain];
+    _count++;
+}
+
+- (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
+    NSParameterAssert(anObject);
+    NSAssert(index >= 0 && index <= _count, @"数组越界");
+    [self ensureCapacity];
+    memmove(&_contents_array[index + 1], &_contents_array[index], (_count - index) * sizeof(id));
+    _contents_array[index] = nil;
+    _count++;
+    _contents_array[index] = [anObject retain];
+}
+
+- (void)ensureCapacity {
+    if (_count >= _capacity) {
+        NSUInteger newCapacity = _capacity + (_capacity >> 1);
+        id *ptr = NSZoneRealloc([self zone], _contents_array, newCapacity * sizeof(id));
+        NSAssert(ptr != 0, @"扩容失败");
+        _contents_array = ptr;
+        _capacity = newCapacity;
+    }
+}
+```
+
+#### 移除元素
+
+```
+- (void)removeObjectAtIndex:(NSUInteger)index {
+    NSAssert(index >= 0 && index < _count, @"数组越界");
+    if (index == _count - 1) {
+        [self removeLastObject];
+        return;
+    }
+    id obj = _contents_array[index];
+    _contents_array[index] = 0;
+    _count--;
+    memmove(&_contents_array[index], &_contents_array[index + 1], (_count - index) * sizeof(id));
+//    while (index < _count) {
+//        _contents_array[index] = _contents_array[index + 1];
+//        index++;
+//    }
+    _contents_array[_count] = 0;
+    [obj release];
+}
+
+- (void)removeAllObjects {
+    NSUInteger pos = _count;
+    if (pos <= 0) {
+        return;
+    }
+    _count = 0;
+    while (pos-- > 0) {
+        id obj = _contents_array[pos];
+        _contents_array[pos] = 0;
+        [obj release];
+    }
+}
+
+- (void)removeLastObject {
+    NSAssert(_count > 0, @"数组越界");
+    _count--;
+    id obj = _contents_array[_count];
+    _contents_array[_count] = 0;
+    [obj release];
+}
+```
+
+#### 查询
+
+```
+- (id)objectAtIndex:(NSUInteger)index {
+    NSAssert(index >= 0 && index < _count, @"数组越界");
+    return _contents_array[index];
+}
+```
+
+#### Debug打印
+
+```
+- (NSString *)description {
+    NSMutableString *str = [[[NSMutableString alloc] initWithString:@"\n["] autorelease];
+    for (NSInteger i = 0; i < _count; i++) {
+        if (i != 0) {
+            [str appendString:@","];
+        }
+        NSObject *obj = [self objectAtIndex:i];
+        [str appendFormat:@"%@", obj];
+    }
+    [str appendString:@"]"];
+    [str appendFormat:@"\ncount = %lu", _count];
+    [str appendFormat:@"\ncapacity = %lu", _capacity];
+    return str;
+}
+```
 
 
