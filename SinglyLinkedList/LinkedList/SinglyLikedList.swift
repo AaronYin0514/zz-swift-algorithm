@@ -28,44 +28,66 @@ public final class SinglyLinkedList<Element> {
     
     // MARK: - Public
     
+    /// 根据索引查找节点元素
+    /// - Parameter index: 节点元素索引
+    /// - Returns: 节点元素
     public func element(at index: Int)-> Element {
         node(at: index).value
     }
     
+    /// 添加节点
+    /// - Parameter value: 节点元素
     public func append(_ value: Element) {
         append(Node(value: value))
     }
     
+    /// 插入节点
+    /// - Parameters:
+    ///   - value: 节点元素
+    ///   - index: 节点索引
     public func insert(_ value: Element, at index: Int) {
         let newNode = Node(value: value)
         insert(newNode, at: index)
     }
     
+    
+    /// 移除节点
+    /// - Parameter index: 节点索引
+    /// - Returns: 移除的元素值
     @discardableResult
     public func remove(at index: Int) -> Element {
         removeNode(after: index == 0 ? nil : node(at: index - 1))
     }
     
+    /// 移除头节点，空链表返回nil
+    /// - Returns: 头元素
     @discardableResult
     public func popHead() -> Element? {
         isEmpty ? nil : removeHead()
     }
     
+    /// 移除头节点，链表不能为空链表
+    /// - Returns: 头元素
     @discardableResult
     public func removeHead() -> Element {
         remove(at: 0)
     }
     
+    /// 移除尾节点，空链表返回nil
+    /// - Returns: 尾元素
     @discardableResult
     public func popTail() -> Element? {
         isEmpty ? nil : removeTail()
     }
     
+    /// 移除尾节点，链表不能为空链表
+    /// - Returns: 尾元素
     @discardableResult
     public func removeTail() -> Element {
         remove(at: _count - 1)
     }
     
+    /// 移除所有节点
     public func removeAll() {
         head = nil
         _count = 0
