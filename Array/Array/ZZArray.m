@@ -7,12 +7,13 @@
 
 #import "ZZArray.h"
 
+/// 最小数组容量
 static NSInteger const ZZArrayMinCapacity = 10;
 
 @interface ZZArray ()
 {
-    id *_contents_array;
-    NSUInteger _capacity;
+    id *_contents_array; /// 数组指针
+    NSUInteger _capacity; /// 数组容量
 }
 
 @end
@@ -75,6 +76,7 @@ static NSInteger const ZZArrayMinCapacity = 10;
 
 - (void)ensureCapacity {
     if (_count >= _capacity) {
+        /// 数组扩容1.5倍
         NSUInteger newCapacity = _capacity + (_capacity >> 1);
         id *ptr = NSZoneRealloc([self zone], _contents_array, newCapacity * sizeof(id));
         NSAssert(ptr != 0, @"扩容失败");

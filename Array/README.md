@@ -36,22 +36,37 @@
 ```
 @interface ZZArray : NSObject
 
+/// 数组元素个数
 @property (nonatomic, assign, readonly) NSUInteger count;
 
+/// 初始化，默认容量10
 - (instancetype)init;
 
+/// 初始化
+/// @param capacity 指定数组初始容量，最小容量10
 - (instancetype)initWithCapacity:(NSUInteger)capacity;
 
+/// 添加数据元素
+/// @param anObject 数据元素不能为nil
 - (void)addObject:(id)anObject;
 
+/// 插入数据元素
+/// @param anObject 数据元素不能为nil
+/// @param index 数组元素的位置
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
 
+/// 查找数据元素
+/// @param index 数组元素的位置
 - (id)objectAtIndex:(NSUInteger)index;
 
+/// 移除数据元素
+/// @param index 数组元素的位置
 - (void)removeObjectAtIndex:(NSUInteger)index;
 
+/// 移除所有数据元素，保留数组容量
 - (void)removeAllObjects;
 
+/// 移除最后一个数据元素
 - (void)removeLastObject;
 
 @end
@@ -60,12 +75,13 @@
 #### 成员变量
 
 ```
+/// 最小数组容量
 static NSInteger const ZZArrayMinCapacity = 10;
 
 @interface ZZArray ()
 {
-    id *_contents_array;
-    NSUInteger _capacity;
+    id *_contents_array; /// 数组指针
+    NSUInteger _capacity; /// 数组容量
 }
 
 @end
@@ -123,6 +139,7 @@ static NSInteger const ZZArrayMinCapacity = 10;
 
 - (void)ensureCapacity {
     if (_count >= _capacity) {
+    	 /// 数组扩容1.5倍
         NSUInteger newCapacity = _capacity + (_capacity >> 1);
         id *ptr = NSZoneRealloc([self zone], _contents_array, newCapacity * sizeof(id));
         NSAssert(ptr != 0, @"扩容失败");
