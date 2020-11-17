@@ -30,44 +30,65 @@ public final class LinkedList<Element> {
     
     // MARK: - Public
     
+    /// 查询结点元素
+    /// - Parameter index: 结点索引
+    /// - Returns: 结点元素
     public func element(at index: Int)-> Element {
         node(at: index).value
     }
     
+    /// 添加元素
+    /// - Parameter value: 结点元素
     public func append(_ value: Element) {
         append(Node(value: value))
     }
     
+    /// 插入元素
+    /// - Parameters:
+    ///   - value: 结点元素
+    ///   - index: 结点索引
     public func insert(_ value: Element, at index: Int) {
         let newNode = Node(value: value)
         insert(newNode, at: index)
     }
     
+    /// 移除结点
+    /// - Parameter index: 结点索引
+    /// - Returns: 结点元素
     @discardableResult
     public func remove(at index: Int) -> Element {
         removeNode(after: index == 0 ? nil : node(at: index - 1))
     }
     
+    /// 移除头结点，如果链表为空，返回nil
+    /// - Returns: 头结点元素
     @discardableResult
     public func popHead() -> Element? {
         isEmpty ? nil : removeHead()
     }
     
+    /// 移除头结点，链表不能为空
+    /// - Returns: 头结点
     @discardableResult
     public func removeHead() -> Element {
         remove(at: 0)
     }
     
+    /// 移除尾结点，如果链表为空，返回nil
+    /// - Returns: 尾结点元素
     @discardableResult
     public func popTail() -> Element? {
         isEmpty ? nil : removeTail()
     }
     
+    /// 移除尾结点，链表不能为空
+    /// - Returns: 尾结点元素
     @discardableResult
     public func removeTail() -> Element {
         remove(at: _count - 1)
     }
     
+    /// 移除所有结点
     public func removeAll() {
         head = nil
         _count = 0
