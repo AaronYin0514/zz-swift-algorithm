@@ -10,17 +10,37 @@ import XCTest
 
 class LinkedListTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testLinkedList() throws {
+        /// 初始化
+        let linkedList = LinkedList<Int>()
+        /// count
+        XCTAssertEqual(linkedList.count, 0)
+        /// 增
+        linkedList.append(0)
+        XCTAssertEqual(linkedList.count, 1)
+        XCTAssertEqual(linkedList.element(at: 0), 0)
+        linkedList.append(1)
+        linkedList.append(2)
+        linkedList.append(3)
+        XCTAssertEqual(linkedList.count, 4)
+        /// 删
+        linkedList.remove(at: <#T##Int#>)
+        /// 查询
+        
+        /// 去除表头
+        
+        /// 去除表尾
+        
+        /// 遍历
+        
+        /// 字面量初始化
+        
+        /// 下表脚本访问
+        
+        /// 反转
+        
+        /// 打印
+        
     }
 
 }

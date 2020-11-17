@@ -57,7 +57,13 @@ public final class LinkedList<Element> {
     /// - Returns: 结点元素
     @discardableResult
     public func remove(at index: Int) -> Element {
-        removeNode(after: index == 0 ? nil : node(at: index - 1))
+        if index == 0 {
+            return removeHead()
+        } else if index == count - 1 {
+            return removeTail()
+        } else {
+            return remove(node(at: index))
+        }
     }
     
     /// 移除头结点，如果链表为空，返回nil
@@ -71,7 +77,12 @@ public final class LinkedList<Element> {
     /// - Returns: 头结点
     @discardableResult
     public func removeHead() -> Element {
-        remove(at: 0)
+        guard let _head = head else {
+            fatalError("Index is out of bounds")
+        }
+        head = _head.next
+        _count -= 1
+        return _head.value
     }
     
     /// 移除尾结点，如果链表为空，返回nil
@@ -85,7 +96,12 @@ public final class LinkedList<Element> {
     /// - Returns: 尾结点元素
     @discardableResult
     public func removeTail() -> Element {
-        remove(at: _count - 1)
+        guard let _tail = tail else {
+            fatalError("Index is out of bounds")
+        }
+        tail = _tail.previous
+        _count -= 1
+        return _tail.value
     }
     
     /// 移除所有结点
@@ -112,11 +128,10 @@ public final class LinkedList<Element> {
             }
             return node
         } else {
-            // 0 1 2 3 4 5 6
             guard var node = tail else {
                 fatalError("List is empty")
             }
-            for _ in index..<count {
+            for _ in index..<count - 1 {
                 guard let previous = node.previous else {
                     fatalError("Index is out of bounds")
                 }
@@ -124,8 +139,6 @@ public final class LinkedList<Element> {
             }
             return node
         }
-        
-        
     }
     
     fileprivate func append(_ newNode: Node) {
@@ -136,6 +149,11 @@ public final class LinkedList<Element> {
         if index == 0 {
             newNode.next = head
             head = newNode
+            if count == 0 { tail = newNode }
+        } else if index == count {
+            tail?.next = newNode
+            newNode.previous = tail
+            tail = newNode
         } else {
             let previousNode = node(at: index - 1)
             let nextNode = previousNode.next
@@ -145,23 +163,11 @@ public final class LinkedList<Element> {
         _count += 1
     }
     
-    fileprivate func removeNode(after previousNode: Node?) -> Element {
-        if let _previousNode = previousNode {
-            guard let node = _previousNode.next else {
-                fatalError("Index is out of bounds")
-            }
-            _previousNode.next = _previousNode.next?.next
-            _count -= 1
-            return node.value
-        } else {
-            /// Head
-            guard let _head = head else {
-                fatalError("List is empty")
-            }
-            head = _head.next
-            _count -= 1
-            return _head.value
-        }
+    fileprivate func remove(_ node: Node) -> Element {
+        node.next?.previous = node.previous
+        node.previous?.next = node.next
+        _count -= 1
+        return node.value
     }
     
 }
