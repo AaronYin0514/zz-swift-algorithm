@@ -17,6 +17,12 @@ class ViewController: UIViewController {
         print(link)
         print(link[6])
         
+        link.reversed()
+        
+        print(link)
+        
+        print(link[7])
+        
     }
 
 

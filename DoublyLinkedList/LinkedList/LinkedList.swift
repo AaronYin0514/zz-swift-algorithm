@@ -116,6 +116,9 @@ public final class LinkedList<Element> {
         if index < 0 {
             fatalError("Index must be greater or equal to 0")
         }
+        if index >= count {
+            fatalError("Index is out of bounds")
+        }
         if index < (count >> 1) {
             guard var node = head else {
                 fatalError("List is empty")
@@ -175,12 +178,13 @@ public final class LinkedList<Element> {
 extension LinkedList {
     
     public func reversed() {
-        var _node: Node? = nil
-        while _node != nil {
-            let _head = head?.next
-            head?.next = _node
-            _node = head
-            head = _head
+        if isEmpty { return }
+        tail = head
+        var node = head
+        while let currentNode = node {
+            node = node?.next
+            swap(&currentNode.previous, &currentNode.next)
+            head = currentNode
         }
     }
     
