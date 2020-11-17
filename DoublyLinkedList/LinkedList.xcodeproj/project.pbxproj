@@ -15,7 +15,6 @@
 		B1B362F9255FA76D001D7D10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1B362F7255FA76D001D7D10 /* LaunchScreen.storyboard */; };
 		B1B36304255FA76D001D7D10 /* LinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B36303255FA76D001D7D10 /* LinkedListTests.swift */; };
 		B1B36321255FA7D4001D7D10 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B3631F255FA7D4001D7D10 /* LinkedList.swift */; };
-		B1B36322255FA7D4001D7D10 /* SinglyLikedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B36320255FA7D4001D7D10 /* SinglyLikedList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +40,6 @@
 		B1B36303255FA76D001D7D10 /* LinkedListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedListTests.swift; sourceTree = "<group>"; };
 		B1B36305255FA76D001D7D10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1B3631F255FA7D4001D7D10 /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
-		B1B36320255FA7D4001D7D10 /* SinglyLikedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinglyLikedList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				B1B3631F255FA7D4001D7D10 /* LinkedList.swift */,
-				B1B36320255FA7D4001D7D10 /* SinglyLikedList.swift */,
 				B1B362EC255FA766001D7D10 /* AppDelegate.swift */,
 				B1B362EE255FA766001D7D10 /* SceneDelegate.swift */,
 				B1B362F0255FA766001D7D10 /* ViewController.swift */,
@@ -205,7 +202,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B36322255FA7D4001D7D10 /* SinglyLikedList.swift in Sources */,
 				B1B362F1255FA766001D7D10 /* ViewController.swift in Sources */,
 				B1B362ED255FA766001D7D10 /* AppDelegate.swift in Sources */,
 				B1B36321255FA7D4001D7D10 /* LinkedList.swift in Sources */,
