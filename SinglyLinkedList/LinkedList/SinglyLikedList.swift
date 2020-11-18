@@ -152,11 +152,12 @@ public final class SinglyLinkedList<Element> {
 extension SinglyLinkedList {
     
     public func reversed() {
-        var _node: Node? = nil
-        while _node != nil {
-            let _head = head?.next
-            head?.next = _node
-            _node = head
+        var node = head
+        head = nil
+        while node != nil {
+            let _head = node
+            node = node?.next
+            _head?.next = head
             head = _head
         }
     }
