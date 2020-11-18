@@ -10,24 +10,37 @@ import XCTest
 
 class StackTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        
+        // 遍历
+        
+        var stack1 = Stack<String>()
+        stack1.push("a")
+        stack1.push("b")
+        stack1.push("c")
+        stack1.push("d")
+        
+        XCTAssertEqual(stack1.count, 4)
+        XCTAssertEqual(stack1.top, "d")
+        
+        let arr = ["a", "b", "c", "d"]
+        for (idx, e) in stack1.enumerated() {
+            XCTAssertEqual(e, arr[idx])
         }
+        
+        // 括号识别
+        
+        let arr1 = ["(", ")"]
+        let arr2 = ["(", ")", "[", "]", "{", "}"]
+        let arr3 = ["(", "]"]
+        let arr4 = ["(", "[", ")", "]"]
+        let arr5 = ["{", "[", "]", "}"]
+        
+        XCTAssertEqual(isValidParentheses(arr1), true)
+        XCTAssertEqual(isValidParentheses(arr2), true)
+        XCTAssertEqual(isValidParentheses(arr3), false)
+        XCTAssertEqual(isValidParentheses(arr4), false)
+        XCTAssertEqual(isValidParentheses(arr5), true)
     }
 
 }

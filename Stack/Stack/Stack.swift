@@ -31,4 +31,36 @@ public struct Stack<Element> {
         array.popLast()
     }
     
+    public mutating func clear() {
+        array.removeAll()
+    }
+    
+}
+
+extension Stack: Sequence {
+    
+    public func makeIterator() -> AnyIterator<Element> {
+        var stack = self
+        return AnyIterator {
+            stack.pop()
+        }
+    }
+    
+}
+
+func isValidParentheses(_ parentheses: [String]) -> Bool {
+    var stack = Stack<String>()
+    let ps = [
+        ")": "(",
+        "]": "[",
+        "}": "{",
+    ]
+    for p in parentheses {
+        if ps.values.contains(p) {
+            stack.push(p)
+        } else if ps[p] == stack.top {
+            _ = stack.pop()
+        }
+    }
+    return stack.count == 0
 }
