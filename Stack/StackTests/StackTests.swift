@@ -23,7 +23,7 @@ class StackTests: XCTestCase {
         XCTAssertEqual(stack1.count, 4)
         XCTAssertEqual(stack1.top, "d")
         
-        let arr = ["a", "b", "c", "d"]
+        let arr = ["d", "c", "b", "a"]
         for (idx, e) in stack1.enumerated() {
             XCTAssertEqual(e, arr[idx])
         }

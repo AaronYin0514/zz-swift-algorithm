@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930554872565F42D004E9F9D /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930554862565F42D004E9F9D /* Queue.swift */; };
+		930554882565F42D004E9F9D /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930554862565F42D004E9F9D /* Queue.swift */; };
+		9305548C2565F4A6004E9F9D /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9305548B2565F4A6004E9F9D /* LinkedList.swift */; };
+		9305548D2565F4A6004E9F9D /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9305548B2565F4A6004E9F9D /* LinkedList.swift */; };
+		930554932565FB9C004E9F9D /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930554922565FB9C004E9F9D /* Deque.swift */; };
+		930554942565FB9C004E9F9D /* Deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930554922565FB9C004E9F9D /* Deque.swift */; };
 		936843E92563904600A8AF80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936843E82563904600A8AF80 /* AppDelegate.swift */; };
 		936843EB2563904600A8AF80 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936843EA2563904600A8AF80 /* SceneDelegate.swift */; };
 		936843ED2563904600A8AF80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936843EC2563904600A8AF80 /* ViewController.swift */; };
@@ -14,7 +20,6 @@
 		936843F22563904900A8AF80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 936843F12563904900A8AF80 /* Assets.xcassets */; };
 		936843F52563904900A8AF80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 936843F32563904900A8AF80 /* LaunchScreen.storyboard */; };
 		936844002563904A00A8AF80 /* QueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936843FF2563904A00A8AF80 /* QueueTests.swift */; };
-		9368440B2563904A00A8AF80 /* QueueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368440A2563904A00A8AF80 /* QueueUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,16 +30,12 @@
 			remoteGlobalIDString = 936843E42563904600A8AF80;
 			remoteInfo = Queue;
 		};
-		936844072563904A00A8AF80 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 936843DD2563904600A8AF80 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 936843E42563904600A8AF80;
-			remoteInfo = Queue;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		930554862565F42D004E9F9D /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		9305548B2565F4A6004E9F9D /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		930554922565FB9C004E9F9D /* Deque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deque.swift; sourceTree = "<group>"; };
 		936843E52563904600A8AF80 /* Queue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Queue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		936843E82563904600A8AF80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		936843EA2563904600A8AF80 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,9 +47,6 @@
 		936843FB2563904A00A8AF80 /* QueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		936843FF2563904A00A8AF80 /* QueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTests.swift; sourceTree = "<group>"; };
 		936844012563904A00A8AF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		936844062563904A00A8AF80 /* QueueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QueueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9368440A2563904A00A8AF80 /* QueueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueUITests.swift; sourceTree = "<group>"; };
-		9368440C2563904A00A8AF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +64,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		936844032563904A00A8AF80 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,7 +72,6 @@
 			children = (
 				936843E72563904600A8AF80 /* Queue */,
 				936843FE2563904A00A8AF80 /* QueueTests */,
-				936844092563904A00A8AF80 /* QueueUITests */,
 				936843E62563904600A8AF80 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,7 +81,6 @@
 			children = (
 				936843E52563904600A8AF80 /* Queue.app */,
 				936843FB2563904A00A8AF80 /* QueueTests.xctest */,
-				936844062563904A00A8AF80 /* QueueUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +91,9 @@
 				936843E82563904600A8AF80 /* AppDelegate.swift */,
 				936843EA2563904600A8AF80 /* SceneDelegate.swift */,
 				936843EC2563904600A8AF80 /* ViewController.swift */,
+				930554862565F42D004E9F9D /* Queue.swift */,
+				930554922565FB9C004E9F9D /* Deque.swift */,
+				9305548B2565F4A6004E9F9D /* LinkedList.swift */,
 				936843EE2563904600A8AF80 /* Main.storyboard */,
 				936843F12563904900A8AF80 /* Assets.xcassets */,
 				936843F32563904900A8AF80 /* LaunchScreen.storyboard */,
@@ -117,15 +109,6 @@
 				936844012563904A00A8AF80 /* Info.plist */,
 			);
 			path = QueueTests;
-			sourceTree = "<group>";
-		};
-		936844092563904A00A8AF80 /* QueueUITests */ = {
-			isa = PBXGroup;
-			children = (
-				9368440A2563904A00A8AF80 /* QueueUITests.swift */,
-				9368440C2563904A00A8AF80 /* Info.plist */,
-			);
-			path = QueueUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,24 +149,6 @@
 			productReference = 936843FB2563904A00A8AF80 /* QueueTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		936844052563904A00A8AF80 /* QueueUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 936844152563904A00A8AF80 /* Build configuration list for PBXNativeTarget "QueueUITests" */;
-			buildPhases = (
-				936844022563904A00A8AF80 /* Sources */,
-				936844032563904A00A8AF80 /* Frameworks */,
-				936844042563904A00A8AF80 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				936844082563904A00A8AF80 /* PBXTargetDependency */,
-			);
-			name = QueueUITests;
-			productName = QueueUITests;
-			productReference = 936844062563904A00A8AF80 /* QueueUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +162,6 @@
 						CreatedOnToolsVersion = 12.2;
 					};
 					936843FA2563904A00A8AF80 = {
-						CreatedOnToolsVersion = 12.2;
-						TestTargetID = 936843E42563904600A8AF80;
-					};
-					936844052563904A00A8AF80 = {
 						CreatedOnToolsVersion = 12.2;
 						TestTargetID = 936843E42563904600A8AF80;
 					};
@@ -221,7 +182,6 @@
 			targets = (
 				936843E42563904600A8AF80 /* Queue */,
 				936843FA2563904A00A8AF80 /* QueueTests */,
-				936844052563904A00A8AF80 /* QueueUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,13 +204,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		936844042563904A00A8AF80 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -260,7 +213,10 @@
 			files = (
 				936843ED2563904600A8AF80 /* ViewController.swift in Sources */,
 				936843E92563904600A8AF80 /* AppDelegate.swift in Sources */,
+				930554932565FB9C004E9F9D /* Deque.swift in Sources */,
+				9305548C2565F4A6004E9F9D /* LinkedList.swift in Sources */,
 				936843EB2563904600A8AF80 /* SceneDelegate.swift in Sources */,
+				930554872565F42D004E9F9D /* Queue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,15 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9305548D2565F4A6004E9F9D /* LinkedList.swift in Sources */,
 				936844002563904A00A8AF80 /* QueueTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		936844022563904A00A8AF80 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9368440B2563904A00A8AF80 /* QueueUITests.swift in Sources */,
+				930554942565FB9C004E9F9D /* Deque.swift in Sources */,
+				930554882565F42D004E9F9D /* Queue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,11 +238,6 @@
 			isa = PBXTargetDependency;
 			target = 936843E42563904600A8AF80 /* Queue */;
 			targetProxy = 936843FC2563904A00A8AF80 /* PBXContainerItemProxy */;
-		};
-		936844082563904A00A8AF80 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 936843E42563904600A8AF80 /* Queue */;
-			targetProxy = 936844072563904A00A8AF80 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -513,46 +459,6 @@
 			};
 			name = Release;
 		};
-		936844162563904A00A8AF80 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YVX2Y63NF8;
-				INFOPLIST_FILE = QueueUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = aaron.QueueUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Queue;
-			};
-			name = Debug;
-		};
-		936844172563904A00A8AF80 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YVX2Y63NF8;
-				INFOPLIST_FILE = QueueUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = aaron.QueueUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Queue;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -579,15 +485,6 @@
 			buildConfigurations = (
 				936844132563904A00A8AF80 /* Debug */,
 				936844142563904A00A8AF80 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		936844152563904A00A8AF80 /* Build configuration list for PBXNativeTarget "QueueUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				936844162563904A00A8AF80 /* Debug */,
-				936844172563904A00A8AF80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

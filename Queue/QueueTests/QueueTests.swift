@@ -10,24 +10,50 @@ import XCTest
 
 class QueueTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testQueue() throws {
+        let queue = Queue<String>()
+        XCTAssertEqual(queue.count, 0)
+        queue.enqueue("A")
+        queue.enqueue("B")
+        queue.enqueue("C")
+        queue.enqueue("D")
+        queue.enqueue("E")
+        queue.enqueue("F")
+        XCTAssertEqual(queue.count, 6)
+        XCTAssertEqual(queue.front, "A")
+        XCTAssertEqual(queue.dequeue(), "A")
+        XCTAssertEqual(queue.count, 5)
+        XCTAssertEqual(queue.front, "B")
+        let arr = ["B", "C", "D", "E", "F"]
+        for (idx, e) in queue.enumerated() {
+            XCTAssertEqual(e, arr[idx])
         }
+    }
+    
+    func testDeque() throws {
+        let deque = Deque<String>()
+        XCTAssertEqual(deque.count, 0)
+        deque.enqueueFront("A")
+        deque.enqueueFront("B")
+        deque.enqueueFront("C")
+        XCTAssertEqual(deque.front, "C")
+        XCTAssertEqual(deque.rear, "A")
+        deque.enqueueRear("D")
+        deque.enqueueRear("E")
+        deque.enqueueRear("F")
+        XCTAssertEqual(deque.front, "C")
+        XCTAssertEqual(deque.rear, "F")
+        
+        XCTAssertEqual(deque.dequeueFront(), "C")
+        XCTAssertEqual(deque.front, "B")
+        XCTAssertEqual(deque.rear, "F")
+        
+        XCTAssertEqual(deque.dequeueRear(), "F")
+        XCTAssertEqual(deque.front, "B")
+        XCTAssertEqual(deque.rear, "E")
+        
+        XCTAssertEqual(deque.count, 4)
+        
     }
 
 }
