@@ -1,6 +1,6 @@
-# 数据结构与算法(Swift版)
+## 数据结构与算法(Swift版)
 
-## 目录
+### 目录
 
 1. [复杂度](https://github.com/AaronYin0514/zz-swift-algorithm/blob/main/BigO)
 1. [动态数组扩容](https://github.com/AaronYin0514/zz-swift-algorithm/blob/main/Array)
