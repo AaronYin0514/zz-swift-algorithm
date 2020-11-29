@@ -78,18 +78,6 @@ public struct BinarySearchTree<Element: Comparable> {
         }
     }
     
-    // MARK: - Remove
-    
-    public func remove(_ value: Element) -> BinarySearchTree<Element> {
-        var tree = BinarySearchTree<Element>()
-        traverseLevelOrder {
-            if $0 != value {
-                tree.append($0)
-            }
-        }
-        return tree
-    }
-    
 }
 
 // MARK: - Extension Map
