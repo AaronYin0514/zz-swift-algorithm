@@ -75,6 +75,8 @@
 所以n0=n2+1
 ```
 
+![binary tree](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinaryTree/complete_binary_tree.png)
+
 ## 满二叉树 & 完全二叉树
 
 ### 概念
@@ -119,11 +121,15 @@
 （2）前序遍历左子树
 （3）前序遍历右子树
 
+![binary tree](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinaryTree/preorder.png)
+
 **2、中序遍历（Inorder Traversal）**
 
 （1）中序遍历左子树
 （1）访问根结点
 （2）中序遍历右子树
+
+![binary tree](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinaryTree/inorder.png)
 
 **3、后序遍历（Postorder Traversal）**
 
@@ -131,10 +137,13 @@
 （2）后续遍历右子树
 （3）访问根结点
 
+![binary tree](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinaryTree/postorder.png)
+
 **4、层序遍历（Level Order Traversal）**
 
 从上到下、从左到右，依次访问每一个结点。
 
+![binary tree](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinaryTree/levelorder.png)
 
 ## 前驱结点(predecessor) & 后继结点(successor)
 
