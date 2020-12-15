@@ -37,6 +37,10 @@ public struct BinarySearchTree<Element: Comparable> {
         root = root?.append(newValue) ?? .leaf(newValue)
     }
     
+    public mutating func remove(_ value: Element) {
+        
+    }
+    
     public mutating func removeAll() {
         root = nil
     }
