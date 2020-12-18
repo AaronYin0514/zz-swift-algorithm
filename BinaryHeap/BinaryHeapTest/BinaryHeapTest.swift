@@ -9,24 +9,72 @@ import XCTest
 
 class BinaryHeapTest: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testMaxHeap() throws {
+        var maxHeap = MaxHeap<Int>()
+        
+        XCTAssertTrue(maxHeap.isEmpty)
+        
+        maxHeap.insert(72)
+        maxHeap.insert(68)
+        maxHeap.insert(50)
+        maxHeap.insert(43)
+        
+        XCTAssertEqual(72, maxHeap.replace(38))
+        XCTAssertEqual(68, maxHeap.replace(47))
+        
+        maxHeap.insert(21)
+        maxHeap.insert(14)
+        maxHeap.insert(80)
+        
+        // 添加
+        XCTAssertEqual(7, maxHeap.count)
+        XCTAssertEqual(80, maxHeap.peek())
+        
+        // 删除
+        XCTAssertEqual(80, maxHeap.remove())
+        XCTAssertEqual(6, maxHeap.count)
+        XCTAssertEqual(50, maxHeap.peek())
+        
+        XCTAssertEqual(50, maxHeap.remove())
+        XCTAssertEqual(5, maxHeap.count)
+        XCTAssertEqual(47, maxHeap.peek())
+        
+        XCTAssertEqual(47, maxHeap.remove())
+        XCTAssertEqual(4, maxHeap.count)
+        XCTAssertEqual(43, maxHeap.peek())
+        
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testMaxHeapArray() throws {
+        var heap: MaxHeap<Int> = [30, 34, 73, 60, 68, 43]
+        
+        XCTAssertEqual(6, heap.count)
+        
+        XCTAssertEqual(73, heap.remove())
+        XCTAssertEqual(5, heap.count)
+        XCTAssertEqual(68, heap.peek())
+        
+        XCTAssertEqual(68, heap.remove())
+        XCTAssertEqual(4, heap.count)
+        XCTAssertEqual(60, heap.peek())
+        
+        XCTAssertEqual(60, heap.remove())
+        XCTAssertEqual(3, heap.count)
+        XCTAssertEqual(43, heap.peek())
+        
+        XCTAssertEqual(43, heap.remove())
+        XCTAssertEqual(2, heap.count)
+        XCTAssertEqual(34, heap.peek())
+        
+        XCTAssertEqual(34, heap.remove())
+        XCTAssertEqual(1, heap.count)
+        XCTAssertEqual(30, heap.peek())
+        
+        XCTAssertEqual(30, heap.remove())
+        XCTAssertEqual(0, heap.count)
+        XCTAssertEqual(nil, heap.peek())
+        
+        XCTAssertEqual(nil, heap.remove())
     }
 
 }
