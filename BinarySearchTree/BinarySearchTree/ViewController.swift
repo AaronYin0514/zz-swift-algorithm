@@ -54,10 +54,10 @@ class ViewController: UIViewController {
         }
         
         print("-------- 删除元素 --------")
-        let removeTree1 = tree.remove(4)
-        removeTree1.traverseLevelOrder {
-            print($0)
-        }
+//        let removeTree1 = tree.remove(4)
+//        removeTree1.traverseLevelOrder {
+//            print($0)
+//        }
         
     }
 
