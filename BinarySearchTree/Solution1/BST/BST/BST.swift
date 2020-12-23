@@ -17,7 +17,8 @@ public struct BST<Element: Comparable> {
     
     var isEmpty: Bool { count == 0 }
     
-    private var root: Node<Element>?
+    typealias Node = BSTNode<Element>
+    private var root: Node?
     
     public mutating func append(_ element: Element) {
         let node = Node(element)
@@ -37,6 +38,35 @@ public struct BST<Element: Comparable> {
         root = nil
     }
     
+    public mutating func remove(_ element: Element) {
+        guard var node = root?.search(element) else {
+            return
+        }
+        if node.degree == 2, let successor = node.successor {
+            node.value = successor.value
+            node = successor
+        }
+        if let replacement = node.left != nil ? node.left : node.right {
+            replacement.parent = node.parent
+            if node.isRoot {
+                root = replacement
+            } else if node.isLeft {
+                node.parent?.left = replacement
+            } else {
+                node.parent?.right = replacement
+            }
+        } else {
+            if node.isRoot {
+                root = nil
+            } else if node.isLeft {
+                node.parent?.left = nil
+            } else {
+                node.parent?.right = nil
+            }
+        }
+        count -= 1
+    }
+    
     // MARK: - Traverse
     
     public func traversePreOrder(process: (Element) -> Void) {
@@ -53,7 +83,7 @@ public struct BST<Element: Comparable> {
     
     public func traverseLevelOrder(process: (Element) -> Void) {
         if root == nil { return }
-        let queue = Queue<Node<Element>>()
+        let queue = Queue<Node>()
         queue.enqueue(root!)
         while !queue.isEmpty {
             guard let node = queue.dequeue() else {
@@ -69,76 +99,157 @@ public struct BST<Element: Comparable> {
         }
     }
     
-    // MARK: - Private
+}
+
+class BSTNode<E: Comparable>: Equatable {
     
-    private class Node<E: Comparable> {
-        
-        var value: E
-        var left: Node<E>?
-        var right: Node<E>?
-        
-        var count: Int {
-            (left?.count ?? 0) + (right?.count ?? 0) + 1
+    var value: E
+    var left: BSTNode<E>?
+    var right: BSTNode<E>?
+    weak var parent: BSTNode<E>?
+    
+    var count: Int {
+        (left?.count ?? 0) + (right?.count ?? 0) + 1
+    }
+    
+    var height: Int {
+        max(left?.height ?? 0, right?.height ?? 0) + 1
+    }
+    
+    var degree: Int {
+        var r = 0
+        if left != nil { r += 1 }
+        if right != nil { r += 1 }
+        return r
+    }
+    
+    var isRoot: Bool {
+        parent == nil
+    }
+    
+    var isLeaf: Bool {
+        left == nil && right == nil
+    }
+    
+    var isLeft: Bool {
+        self == parent?.left
+    }
+    
+    var isRight: Bool {
+        self == parent?.right
+    }
+    
+    var predecessor: BSTNode<E>? {
+        var p = left
+        if p != nil {
+            while p?.right != nil {
+                p = p?.right
+            }
+            return p
         }
-        
-        var height: Int {
-            max(left?.height ?? 0, right?.height ?? 0) + 1
+        p = self
+        while p?.parent != nil && p == p?.parent?.left {
+            p = p?.parent
         }
-        
-        init(_ value: E) {
-            self.value = value
+        return p?.parent
+    }
+    
+    var successor: BSTNode<E>? {
+        var p = right
+        if p != nil {
+            while p?.left != nil {
+                p = p?.left
+            }
+            return p
         }
-        
-        func append(_ node: Node<E>) {
-            if value < node.value {
-                if right == nil {
-                    right = node
-                } else {
-                    right?.append(node)
-                }
-            } else if value > node.value {
-                if left == nil {
-                    left = node
-                } else {
-                    left?.append(node)
-                }
+        p = self
+        while p?.parent != nil && p == p?.parent?.right {
+            p = p?.parent
+        }
+        return p?.parent
+    }
+    
+    init(_ value: E) {
+        self.value = value
+    }
+    
+    func append(_ node: BSTNode<E>) {
+        if value < node.value {
+            if right == nil {
+                right = node
+                node.parent = self
             } else {
-                value = node.value
+                right?.append(node)
+            }
+        } else if value > node.value {
+            if left == nil {
+                left = node
+                node.parent = self
+            } else {
+                left?.append(node)
+            }
+        } else {
+            value = node.value
+        }
+    }
+    
+    func remove(_ node: BSTNode<E>) {
+        var n = node
+        if n.degree == 2, let s = node.successor {
+            n.value = s.value
+            n = s
+        }
+        let replacement = n.left != nil ? n.left : n.right
+        if replacement != nil {
+            replacement?.parent = n.parent
+            if n.isLeft {
+                n.parent?.left = replacement
+            } else {
+                n.parent?.right = replacement
+            }
+        } else {
+            if n.isLeft {
+                n.parent?.left = nil
+            } else {
+                n.parent?.right = nil
             }
         }
-        
-        func search(_ element: E) -> Node<E>? {
-            var node: Node<E>? = self
-            while let n = node {
-                if element < n.value {
-                    node = n.left
-                } else if element > n.value {
-                    node = n.right
-                } else {
-                    return n
-                }
+    }
+    
+    func search(_ element: E) -> BSTNode<E>? {
+        var node: BSTNode<E>? = self
+        while let n = node {
+            if element < n.value {
+                node = n.left
+            } else if element > n.value {
+                node = n.right
+            } else {
+                return n
             }
-            return node
         }
-        
-        func traversePreOrder(_ process: (E) -> Void) {
-            process(value)
-            left?.traversePreOrder(process)
-            right?.traversePreOrder(process)
-        }
-        
-        func traverseInOrder(_ process: (E) -> Void) {
-            left?.traverseInOrder(process)
-            process(value)
-            right?.traverseInOrder(process)
-        }
-        
-        func traversePostOrder(_ process: (E) -> Void) {
-            left?.traversePostOrder(process)
-            right?.traversePostOrder(process)
-            process(value)
-        }
-        
+        return node
+    }
+    
+    func traversePreOrder(_ process: (E) -> Void) {
+        process(value)
+        left?.traversePreOrder(process)
+        right?.traversePreOrder(process)
+    }
+    
+    func traverseInOrder(_ process: (E) -> Void) {
+        left?.traverseInOrder(process)
+        process(value)
+        right?.traverseInOrder(process)
+    }
+    
+    func traversePostOrder(_ process: (E) -> Void) {
+        left?.traversePostOrder(process)
+        right?.traversePostOrder(process)
+        process(value)
+    }
+    
+    static func == (lhs: BSTNode<E>, rhs: BSTNode<E>) -> Bool {
+        lhs.value == rhs.value
     }
     
 }
@@ -173,10 +284,10 @@ extension BST: CustomStringConvertible where Element: CustomStringConvertible {
     private func __levelDescription() -> [[String]]? {
         guard let node = root else { return nil }
         var levels: [[String]] = [[node.value.description]]
-        var array: [Node<Element>?] = [node]
+        var array: [Node?] = [node]
         while true {
             var strings = Array<String>()
-            var temp: [Node<Element>?] = []
+            var temp: [Node?] = []
             for n in array {
                 if let left = n?.left {
                     temp.append(left)

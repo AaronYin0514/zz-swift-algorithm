@@ -21,7 +21,7 @@ tree.append(10)
 tree.append(12)
 
 print("-------- 结构 --------")
-print(tree.description)
+//print(tree.description)
 
 //print("-------- 前序遍历 --------")
 //tree.traversePreOrder {
@@ -51,6 +51,34 @@ print(tree.description)
 //    print($0)
 //}
 
-let tree2: BST<Int> = [164, 40, 900, 712, 428, 160, 958, 753, 255, 404, 258, 346, 876, 484, 225, 444, 837, 410, 339, 263, 878, 928, 883, 299, 87, 416]
+var tree2: BST<Int> = [60,53,64,29,55,62,74,63,73,81]
+//var tree2: BST<Int> = [60]
+//tree2.traverseInOrder { print($0) }
 print(tree2.description)
+tree2.remove(60)
+print(tree2.description)
+//tree2.remove(60)
+//print(tree2.description)
+//tree2.remove(55)
+//print(tree2.description)
+//tree2.remove(63)
+//print(tree2.description)
 
+// 1 删除叶子结点
+// 1.1 删除的是根结点
+
+// 1.2 左子结点
+
+// 1.3 右子结点
+
+// 2 删除度为1的结点
+// 2.1 删除的是根结点
+
+// 2.2 左子结点
+
+// 2.3 右子结点
+
+// 3 删除度为2的结点
+// 3.1 后继结点为叶子结点
+
+// 3.2 后继结点度为1
