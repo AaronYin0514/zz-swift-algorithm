@@ -37,14 +37,6 @@ public struct BinarySearchTree<Element: Comparable> {
         root = root?.append(newValue) ?? .leaf(newValue)
     }
     
-    public mutating func remove(_ value: Element) {
-        
-    }
-    
-    public mutating func removeAll() {
-        root = nil
-    }
-    
     public func contains(value: Element) -> Bool {
         root?.search(value) != nil
     }
@@ -162,14 +154,14 @@ enum BinarySearchTreeNode<T: Comparable> {
                 return .leaf(newValue)
             }
         case let .node(left, value, right):
-            if value == newValue {
-                return .node(left, newValue, right)
-            } else if newValue < value {
+            if newValue < value {
                 let newLeft = left?.append(newValue) ?? .leaf(newValue)
-                return .node(newLeft, newValue, right)
-            } else {
+                return .node(newLeft, value, right)
+            } else if newValue > value {
                 let newRight = right?.append(newValue) ?? .leaf(newValue)
-                return .node(left, newValue, newRight)
+                return .node(left, value, newRight)
+            } else {
+                return .node(left, newValue, right)
             }
         }
     }
