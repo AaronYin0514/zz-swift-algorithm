@@ -99,6 +99,11 @@ public struct BST<Element: Comparable> {
         }
     }
     
+    // MARK: - Custom Operator
+    public static func << (left: inout BST<Element>, right: Element) {
+        left.append(right)
+    }
+    
 }
 
 class BSTNode<E: Comparable>: Equatable {
