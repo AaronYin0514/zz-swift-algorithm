@@ -21,13 +21,14 @@ public struct BST<Element: Comparable> {
     private var root: Node?
     
     public mutating func append(_ element: Element) {
-        let node = Node(element)
-        if root == nil {
-            root = node
+        if let r = root {
+            if r.append(Node(element)) {
+                count += 1
+            }
         } else {
-            root?.append(node)
+            root = Node(element)
+            count += 1
         }
-        count += 1
     }
     
     public func contains(_ element: Element) -> Bool {
@@ -101,12 +102,16 @@ public struct BST<Element: Comparable> {
     
 }
 
-class BSTNode<E: Comparable>: Equatable {
+final class BSTNode<E: Comparable>: Equatable {
     
     var value: E
     var left: BSTNode<E>?
     var right: BSTNode<E>?
     weak var parent: BSTNode<E>?
+    
+    init(_ value: E) {
+        self.value = value
+    }
     
     var count: Int {
         (left?.count ?? 0) + (right?.count ?? 0) + 1
@@ -169,49 +174,28 @@ class BSTNode<E: Comparable>: Equatable {
         return p?.parent
     }
     
-    init(_ value: E) {
-        self.value = value
-    }
-    
-    func append(_ node: BSTNode<E>) {
-        if value < node.value {
-            if right == nil {
-                right = node
-                node.parent = self
+    func append(_ node: BSTNode<E>) -> Bool {
+        var n = self
+        while true {
+            if n.value < node.value {
+                if let right = n.right {
+                    n = right
+                } else {
+                    n.right = node
+                    node.parent = n
+                    return true
+                }
+            } else if n.value > node.value {
+                if let left = n.left {
+                    n = left
+                } else {
+                    n.left = node
+                    node.parent = n
+                    return true
+                }
             } else {
-                right?.append(node)
-            }
-        } else if value > node.value {
-            if left == nil {
-                left = node
-                node.parent = self
-            } else {
-                left?.append(node)
-            }
-        } else {
-            value = node.value
-        }
-    }
-    
-    func remove(_ node: BSTNode<E>) {
-        var n = node
-        if n.degree == 2, let s = node.successor {
-            n.value = s.value
-            n = s
-        }
-        let replacement = n.left != nil ? n.left : n.right
-        if replacement != nil {
-            replacement?.parent = n.parent
-            if n.isLeft {
-                n.parent?.left = replacement
-            } else {
-                n.parent?.right = replacement
-            }
-        } else {
-            if n.isLeft {
-                n.parent?.left = nil
-            } else {
-                n.parent?.right = nil
+                n.value = node.value
+                return false
             }
         }
     }
@@ -263,6 +247,60 @@ extension BST: ExpressibleByArrayLiteral {
             append(e)
         }
     }
+}
+
+extension BST {
+    
+    public func map<T>(formula: (Element) -> T) -> BST<T> {
+        var tree = BST<T>()
+        traverseLevelOrder {
+            tree.append(formula($0))
+        }
+        return tree
+    }
+    
+    public func flatMap<T>(formula: (Element) -> BST<T>) -> BST<T> {
+        var tree = BST<T>()
+        traverseLevelOrder {
+            formula($0).traverseLevelOrder {
+                tree.append($0)
+            }
+        }
+        return tree
+    }
+    
+    public func reducePreOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
+        var result = initialResult
+        traversePreOrder {
+            result = nextPartialResult(result, $0)
+        }
+        return result
+    }
+    
+    public func reduceInOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
+        var result = initialResult
+        traverseInOrder {
+            result = nextPartialResult(result, $0)
+        }
+        return result
+    }
+    
+    public func reducePostOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
+        var result = initialResult
+        traversePostOrder {
+            result = nextPartialResult(result, $0)
+        }
+        return result
+    }
+    
+    public func reduceLevelOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
+        var result = initialResult
+        traverseLevelOrder {
+            result = nextPartialResult(result, $0)
+        }
+        return result
+    }
+    
 }
 
 // MARK: - Debugging

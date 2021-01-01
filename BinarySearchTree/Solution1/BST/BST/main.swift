@@ -16,12 +16,9 @@ tree.append(2)
 tree.append(5)
 tree.append(8)
 tree.append(8)
-tree.append(11)
 tree.append(1)
 tree.append(3)
-tree.append(10)
-tree.append(12)
-tree.append(3)
+//tree.append(10)
 
 print("-------- 结构 --------")
 print(tree.description)
@@ -54,12 +51,12 @@ print(tree.description)
 //    print($0)
 //}
 
-var tree2: BST<Int> = [60,53,64,29,55,62,74,63,73,81]
+//var tree2: BST<Int> = [60,53,64,29,55,62,74,63,73,81]
 //var tree2: BST<Int> = [60]
 //tree2.traverseInOrder { print($0) }
-print(tree2.description)
-tree2.remove(60)
-print(tree2.description)
+//print(tree2.description)
+//tree2.remove(60)
+//print(tree2.description)
 //tree2.remove(60)
 //print(tree2.description)
 //tree2.remove(55)
@@ -67,21 +64,9 @@ print(tree2.description)
 //tree2.remove(63)
 //print(tree2.description)
 
-// 1 删除叶子结点
-// 1.1 删除的是根结点
+//let tree8: BST<Int> = [5,3,8,1,4,6,9,2,7]
+//print(tree8)
 
-// 1.2 左子结点
 
-// 1.3 右子结点
-
-// 2 删除度为1的结点
-// 2.1 删除的是根结点
-
-// 2.2 左子结点
-
-// 2.3 右子结点
-
-// 3 删除度为2的结点
-// 3.1 后继结点为叶子结点
-
-// 3.2 后继结点度为1
+//let tree3: BST<Int> = [501,302,898,167,409,673,959,957,962,236,748]
+//print(tree3)
