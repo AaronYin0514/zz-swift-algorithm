@@ -12,9 +12,11 @@ tree.append(7)
 tree.append(4)
 tree.append(5)
 tree.append(9)
-tree.append(2)
-tree.append(5)
-tree.append(8)
+
+tree << 2
+tree << 5
+tree << 8
+
 tree.append(8)
 tree.append(1)
 tree.append(3)

@@ -1,15 +1,17 @@
 //
-//  BST.swift
-//  BST
+//  AVLTree.swift
+//  AVLTree
 //
-//  Created by Aaron on 2020/12/19.
+//  Created by Aaron on 2020/12/29.
 //
 
 import Foundation
 
-public struct BST<Element: Comparable> {
+public struct AVLTree<Element: Comparable> {
     
-    var count = 0
+    var count: Int {
+        root?.count ?? 0
+    }
     
     var height: Int {
         root?.height ?? 0
@@ -21,14 +23,13 @@ public struct BST<Element: Comparable> {
     private var root: Node?
     
     public mutating func append(_ element: Element) {
-        if let r = root {
-            if r.append(Node(element)) {
-                count += 1
-            }
+        let node = Node(element)
+        if root == nil {
+            root = node
         } else {
-            root = Node(element)
-            count += 1
+            root?.append(node)
         }
+        rebalance(node)
     }
     
     public func contains(_ element: Element) -> Bool {
@@ -56,16 +57,17 @@ public struct BST<Element: Comparable> {
             } else {
                 node.parent?.right = replacement
             }
+            rebalance(node)
+        } else if node.isRoot {
+            root = nil
         } else {
-            if node.isRoot {
-                root = nil
-            } else if node.isLeft {
+            if node.isLeft {
                 node.parent?.left = nil
             } else {
                 node.parent?.right = nil
             }
+            rebalance(node)
         }
-        count -= 1
     }
     
     // MARK: - Traverse
@@ -101,22 +103,81 @@ public struct BST<Element: Comparable> {
     }
     
     // MARK: - Custom Operator
-    public static func << (left: inout BST<Element>, right: Element) {
+    public static func << (left: inout AVLTree<Element>, right: Element) {
         left.append(right)
+    }
+    
+    // MARK: - Private
+    private mutating func rebalance(_ node: Node) {
+        var n = node
+        while let parent = n.parent {
+            if parent.isBalanced {
+                n = parent
+            } else {
+                _rebalance(parent)
+                break
+            }
+        }
+    }
+    
+    private mutating func _rebalance(_ grand: Node) {
+        guard let parent = grand.taller, let child = parent.taller else {
+            return
+        }
+        if parent.isLeft {
+            if child.isLeft {
+                rotateRight(grand)
+            } else {
+                rotateLeft(parent)
+                rotateRight(grand)
+            }
+        } else {
+            if child.isRight {
+                rotateLeft(grand)
+            } else {
+                rotateRight(parent)
+                rotateLeft(grand)
+            }
+        }
+    }
+    
+    private mutating func rotateLeft(_ grand: Node) {
+        let parent = grand.right
+        let child = parent?.left
+        grand.right = child
+        parent?.left = grand
+        afterRotate(grand, parent, child)
+    }
+    
+    private mutating func rotateRight(_ grand: Node) {
+        let parent = grand.left
+        let child = parent?.right
+        grand.left = child
+        parent?.right = grand
+        afterRotate(grand, parent, child)
+    }
+    
+    private mutating func afterRotate(_ grand: Node, _ parent: Node?, _ child: Node?) {
+        parent?.parent = grand.parent
+        if grand.isLeft {
+            grand.parent?.left = parent
+        } else if grand.isRight {
+            grand.parent?.right = parent
+        } else {
+            root = parent
+        }
+        child?.parent = grand
+        grand.parent = parent
     }
     
 }
 
-final class BSTNode<E: Comparable>: Equatable {
+class BSTNode<E: Comparable>: Equatable {
     
     var value: E
     var left: BSTNode<E>?
     var right: BSTNode<E>?
     weak var parent: BSTNode<E>?
-    
-    init(_ value: E) {
-        self.value = value
-    }
     
     var count: Int {
         (left?.count ?? 0) + (right?.count ?? 0) + 1
@@ -149,6 +210,27 @@ final class BSTNode<E: Comparable>: Equatable {
         self == parent?.right
     }
     
+    var sibling: BSTNode<E>? {
+        if isLeft { return parent?.right }
+        return parent?.left
+    }
+    
+    var balanceFactor: Int {
+        abs((left?.height ?? 0) - (right?.height ?? 0))
+    }
+    
+    var isBalanced: Bool {
+        balanceFactor <= 1
+    }
+    
+    var taller: BSTNode<E>? {
+        let leftHeight = left?.height ?? 0
+        let rightHeight = right?.height ?? 0
+        if leftHeight > rightHeight { return left }
+        if rightHeight > leftHeight { return right }
+        return isLeft ? left : right
+    }
+    
     var predecessor: BSTNode<E>? {
         var p = left
         if p != nil {
@@ -179,28 +261,49 @@ final class BSTNode<E: Comparable>: Equatable {
         return p?.parent
     }
     
-    func append(_ node: BSTNode<E>) -> Bool {
-        var n = self
-        while true {
-            if n.value < node.value {
-                if let right = n.right {
-                    n = right
-                } else {
-                    n.right = node
-                    node.parent = n
-                    return true
-                }
-            } else if n.value > node.value {
-                if let left = n.left {
-                    n = left
-                } else {
-                    n.left = node
-                    node.parent = n
-                    return true
-                }
+    init(_ value: E) {
+        self.value = value
+    }
+    
+    func append(_ node: BSTNode<E>) {
+        if value < node.value {
+            if right == nil {
+                right = node
+                node.parent = self
             } else {
-                n.value = node.value
-                return false
+                right?.append(node)
+            }
+        } else if value > node.value {
+            if left == nil {
+                left = node
+                node.parent = self
+            } else {
+                left?.append(node)
+            }
+        } else {
+            value = node.value
+        }
+    }
+    
+    func remove(_ node: BSTNode<E>) {
+        var n = node
+        if n.degree == 2, let s = node.successor {
+            n.value = s.value
+            n = s
+        }
+        let replacement = n.left != nil ? n.left : n.right
+        if replacement != nil {
+            replacement?.parent = n.parent
+            if n.isLeft {
+                n.parent?.left = replacement
+            } else {
+                n.parent?.right = replacement
+            }
+        } else {
+            if n.isLeft {
+                n.parent?.left = nil
+            } else {
+                n.parent?.right = nil
             }
         }
     }
@@ -243,7 +346,7 @@ final class BSTNode<E: Comparable>: Equatable {
     
 }
 
-extension BST: ExpressibleByArrayLiteral {
+extension AVLTree: ExpressibleByArrayLiteral {
     
     public typealias ArrayLiteralElement = Element
     
@@ -254,63 +357,9 @@ extension BST: ExpressibleByArrayLiteral {
     }
 }
 
-extension BST {
-    
-    public func map<T>(formula: (Element) -> T) -> BST<T> {
-        var tree = BST<T>()
-        traverseLevelOrder {
-            tree.append(formula($0))
-        }
-        return tree
-    }
-    
-    public func flatMap<T>(formula: (Element) -> BST<T>) -> BST<T> {
-        var tree = BST<T>()
-        traverseLevelOrder {
-            formula($0).traverseLevelOrder {
-                tree.append($0)
-            }
-        }
-        return tree
-    }
-    
-    public func reducePreOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
-        var result = initialResult
-        traversePreOrder {
-            result = nextPartialResult(result, $0)
-        }
-        return result
-    }
-    
-    public func reduceInOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
-        var result = initialResult
-        traverseInOrder {
-            result = nextPartialResult(result, $0)
-        }
-        return result
-    }
-    
-    public func reducePostOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
-        var result = initialResult
-        traversePostOrder {
-            result = nextPartialResult(result, $0)
-        }
-        return result
-    }
-    
-    public func reduceLevelOrder<Result>(_ initialResult: Result, _ nextPartialResult: (Result, Element) -> Result) -> Result {
-        var result = initialResult
-        traverseLevelOrder {
-            result = nextPartialResult(result, $0)
-        }
-        return result
-    }
-    
-}
-
 // MARK: - Debugging
 
-extension BST: CustomStringConvertible where Element: CustomStringConvertible {
+extension AVLTree: CustomStringConvertible where Element: CustomStringConvertible {
     
     public var description: String {
         guard var levels = __levelDescription() else {
