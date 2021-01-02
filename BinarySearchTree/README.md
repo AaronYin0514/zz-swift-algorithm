@@ -61,25 +61,27 @@ public func traverseLevelOrder(process: (Element) -> Void)
 
 ## 添加结点
 
+如下图：
+
 ![](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/imgs/append.gif)
 
 ## 删除结点 
 
 ### 1 删除 - 叶子结点
 
-如果要删除的结点是叶子结点，那么直接删除。
+如果要删除的结点是叶子结点，那么直接删除。如下图：
 
 ![](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/imgs/delete_leaf.gif)
 
 ### 2 删除 - 度为1的结点
 
-用子结点替代原结点的位置
+用子结点替代原结点的位置。如下图：
 
 ![](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/imgs/delete_1.gif)
 
 ### 3 删除 - 度为2的结点
 
-先用前驱或者后继结点的值覆盖原结点的值，然后删除相应的前驱或者后继结点
+先用前驱或者后继结点的值覆盖原结点的值，然后删除相应的前驱或者后继结点。如下图：
 
 > 如果一个结点的度为2，那么它的前驱、后继结点的度只可能是1和0
 
@@ -87,9 +89,59 @@ public func traverseLevelOrder(process: (Element) -> Void)
 
 ## 使用Swift Class实现二叉搜索树
 
-[实现>>](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/Solution1)
+[实现>>](https://github.com/AaronYin0514/zz-swift-algorithm/blob/main/BinarySearchTree/Solution1)
 
 ## 使用Swift Enum实现二叉搜索树
 
-[实现>>](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/Solution2)
+[实现>>](https://github.com/AaronYin0514/zz-swift-algorithm/blob/main/BinarySearchTree/Solution2)
+
+## 二叉搜索树复杂度分析
+
+如果按照从小到大的顺序添加结点，二叉搜索树就退化成链表。
+
+![](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/imgs/link.png)
+
+## 平衡(Balance)
+
+**平衡**：当结点数量固定时，左右子树的高度越接近，这棵二叉树就越平衡（高度越低）。最理想的平衡，就是像完全二叉树、满二叉树那样，高度是最小的。
+
+![](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/imgs/Tree.png)
+
+## 如何改进二叉搜索树
+
+首先，结点的添加、删除顺序是无法限制的，可以认为是随机的
+
+所以，改进方案是：在结点的添加、删除操作之后，想办法让二叉搜索树恢复平衡（减少树的高度）
+
+如果接着继续调整结点的位置，完全可以达到理想的平衡，但是付出的代价可能比较大
+
+![](https://raw.githubusercontent.com/AaronYin0514/zz-swift-algorithm/main/BinarySearchTree/imgs/balance.png)
+
+如果调整的次数会比较多，反而增加了时间复杂度
+
+总结来说，比较合理的改进方案是：用尽量少的调整次数达到适度平衡即可
+
+一棵达到适度平衡的二叉搜索树，可以称之为：平衡二叉树
+
+## 平衡二叉树（Balanced Binary Search Tree）
+
+英文简称为：BBST
+
+经典常见的平衡二叉搜索树有
+
+### AVL树
+
+* Windows NT内核中广泛使用
+
+### 红黑树
+
+* C++ STL （比如map、set）
+* Java的TreeMap、TreeSet、HashMap、HashSet
+* Linux的进度调度
+* Ngix的timer管理
+
+一般也称为它们为：自平衡的二叉搜索树（Self-balancing Binary Search Tree）
+
+
+
 
