@@ -72,3 +72,6 @@ print(tree.description)
 
 //let tree3: BST<Int> = [501,302,898,167,409,673,959,957,962,236,748]
 //print(tree3)
+
+let tree4: BST<Int> = [8, 3, 10, 1, 6, 14, 4, 7, 13]
+print(tree4)

@@ -9,13 +9,13 @@ import Foundation
 
 public struct BST<Element: Comparable> {
     
-    var count = 0
+    public var count = 0
     
-    var height: Int {
+    public var height: Int {
         root?.height ?? 0
     }
     
-    var isEmpty: Bool { count == 0 }
+    public var isEmpty: Bool { count == 0 }
     
     typealias Node = BSTNode<Element>
     private var root: Node?
