@@ -34,8 +34,6 @@ public struct MaxHeap<Element: Comparable> {
         nodes[0] = last
         nodes.removeLast()
         siftDown(0)
-        print("--------------------------")
-        print(nodes)
         return node
     }
     
@@ -96,6 +94,13 @@ extension MaxHeap: ExpressibleByArrayLiteral {
         for i in 1..<count {
             siftUp(i)
         }
-        print(nodes)
     }
+}
+
+extension MaxHeap: CustomStringConvertible {
+    
+    public var description: String {
+        nodes.description
+    }
+    
 }

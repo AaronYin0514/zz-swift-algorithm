@@ -34,8 +34,6 @@ public struct MinHeap<Element: Comparable> {
         nodes[0] = last
         nodes.removeLast()
         siftDown(0)
-        print("--------------------------")
-        print(nodes)
         return node
     }
     
@@ -93,9 +91,18 @@ extension MinHeap: ExpressibleByArrayLiteral {
     
     public init(arrayLiteral elements: Element...) {
         nodes = elements
-        for i in 1..<count {
-            siftUp(i)
+        var index = (count >> 1) - 1
+        while index >= 0 {
+            siftDown(index)
+            index -= 1
         }
-        print(nodes)
     }
+}
+
+extension MinHeap: CustomStringConvertible {
+    
+    public var description: String {
+        nodes.description
+    }
+    
 }
